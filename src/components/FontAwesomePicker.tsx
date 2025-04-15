@@ -1,20 +1,19 @@
 import { RenderFieldExtensionCtx } from "datocms-plugin-sdk";
-import { FC, useState } from "react";
 import get from "lodash/get";
+import { FC, useState } from "react";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
+import * as faBrands from "@fortawesome/free-brands-svg-icons";
+import * as faLight from "@fortawesome/pro-light-svg-icons";
 import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
 import { iconsBrands } from "../icons/iconsBrands";
-import { iconsRegular } from "../icons/iconsRegular";
-import { iconsSolid } from "../icons/iconsSolid";
-import * as faSolid from "@fortawesome/free-solid-svg-icons";
-import * as faRegular from "@fortawesome/free-regular-svg-icons";
-import * as faBrands from "@fortawesome/free-brands-svg-icons";
+import { iconsLight } from "../icons/iconsLight";
 
-import "./styles.css";
 import { Canvas, TextInput } from "datocms-react-ui";
+import "./styles.css";
 
 type Props = {
   ctx: RenderFieldExtensionCtx;
@@ -34,7 +33,7 @@ const FontAwesomePicker: FC<Props> = ({ ctx }) => {
     ctx?.setFieldValue(ctx.fieldPath, icon ? JSON.stringify(icon) : "");
   };
 
-  const allIcons = [...iconsSolid, ...iconsRegular, ...iconsBrands]
+  const allIcons = [...iconsBrands, ...iconsLight]
     .filter((icon) => {
       if (searchTerm) {
         return icon.name.indexOf(searchTerm.toLowerCase()) !== -1;
@@ -126,14 +125,11 @@ const FontAwesomePicker: FC<Props> = ({ ctx }) => {
               const reactIconName = getReactIconName(icon);
               let importFrom: any;
               switch (icon.prefix) {
-                case "fas":
-                  importFrom = faSolid;
-                  break;
-                case "far":
-                  importFrom = faRegular;
-                  break;
                 case "fab":
                   importFrom = faBrands;
+                  break;
+                case "fal":
+                  importFrom = faLight;
                   break;
                 default:
                   break;
@@ -173,7 +169,7 @@ const FontAwesomePicker: FC<Props> = ({ ctx }) => {
                     background: ctx?.theme.primaryColor || "black",
                   }}
                 >
-                  <FontAwesomeIcon icon={faSolid.faAngleDoubleLeft} />
+                  <FontAwesomeIcon icon={faLight.faChevronsLeft as IconProp} />
                 </button>
                 <button
                   onClick={() => setCurrentPage((s) => s - 1)}
@@ -183,7 +179,7 @@ const FontAwesomePicker: FC<Props> = ({ ctx }) => {
                     background: ctx?.theme.primaryColor || "black",
                   }}
                 >
-                  <FontAwesomeIcon icon={faSolid.faAngleLeft} />
+                  <FontAwesomeIcon icon={faLight.faChevronLeft as IconProp} />
                 </button>
                 <button
                   disabled={currentPage === totalPages}
@@ -193,7 +189,7 @@ const FontAwesomePicker: FC<Props> = ({ ctx }) => {
                     background: ctx?.theme.primaryColor || "black",
                   }}
                 >
-                  <FontAwesomeIcon icon={faSolid.faAngleRight} />
+                  <FontAwesomeIcon icon={faLight.faChevronRight as IconProp} />
                 </button>
                 <button
                   disabled={currentPage === totalPages}
@@ -203,7 +199,7 @@ const FontAwesomePicker: FC<Props> = ({ ctx }) => {
                     background: ctx?.theme.primaryColor || "black",
                   }}
                 >
-                  <FontAwesomeIcon icon={faSolid.faAngleDoubleRight} />
+                  <FontAwesomeIcon icon={faLight.faChevronsRight as IconProp} />
                 </button>
               </div>
             </div>
